@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            background-color: #000;
+            color: #FFF;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #FF4040;
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h3{
+            font-family: 'DotGothic16', sans-serif;
+            font-weight: bold;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        li {
+            background-color: transparent;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        .blue-line {
+            width: 5px;
+            margin-right: 20px;
+        }
+
+        .note-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-content h3 {
+            font-size: 1.5rem;
+            color: #FFF;
+            margin: 0 0 10px 0;
+        }
+
+        .note-content p {
+            color: #CCC;
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+        }
+
+        .note-content small {
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 0.9rem;
+            color: #FF4040;
+            margin-top: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+        }
+
+        input[type="text"], textarea, select {
+            background-color: transparent;
+            border: 1px solid #FFF;
+            border-radius: 10px;
+            padding: 10px;
+            color: #FFF;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #FF4040;
+            color: #FFF;
+            font-family: 'DotGothic16', sans-serif;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: transform 0.2s ease-in-out;
+            width: 48%;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #FF6060;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .add-note-form {
+            padding: 20px;
+            max-width: 820px;
+            margin: 20px auto;
+        }
+
+        .add-note-form h2 {
+            font-size: 1.8rem;
+            color: #FFF;
+            margin-bottom: 20px;
+        }
+
+        .add-note-form input,
+        .add-note-form textarea,
+        .add-note-form select,
+        .add-note-form button {
+            margin-bottom: 15px;
+        }
+
+        .add-note-form button {
+            width: 100%;
+        }
+        select {
+            background-color: #000; /* Set background to black */
+            border: 1px solid #FFF;
+            border-radius: 10px;
+            padding: 10px;
+            color: #FFF; /* Set text color to white */
+            font-size: 1rem;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+/* Preloader Styling */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensures it is above all content */
+}
+
+.dot-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.dot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #FF4040; /* Red */
+    border-radius: 50%;
+    animation: moveDot 1.5s linear infinite;
+    opacity: 0;
+}
+
+.dot:nth-child(2) {
+    background-color: #FFF; /* White */
+    animation-delay: 0.15s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+.dot:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+.dot:nth-child(6) {
+    animation-delay: 0.75s;
+}
+
+.dot:nth-child(7) {
+    animation-delay: 0.9s;
+}
+
+.dot:nth-child(8) {
+    animation-delay: 1.05s;
+}
+
+/* Keyframes for dot animation */
+@keyframes moveDot {
+    0%, 100% {
+        opacity: 0;
+        transform: rotate(0deg) translate(60px) rotate(0deg);
+    }
+    25% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(360deg) translate(60px) rotate(-360deg);
+    }
+}
+
+/* Hide preloader when not visible */
+body.loaded #preloader {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+/* Welcome Section Styling */
+#welcome {
+    display: none; /* Hidden initially */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Black background */
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Above everything except preloader */
+    text-align: center;
+    font-family: 'DotGothic16', sans-serif;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#welcome.loaded {
+    opacity: 1;
+    display: flex; /* Make visible when loaded */
+}
+
+#welcome h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+#welcome h1 .highlight {
+    color: #FF4040; /* Red for 'Quick Notes' */
+}
+
+#welcome h1 span {
+    color: #999; /* Grey for the rest of the text */
+}
+
+.arrow-container {
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.arrow-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #FF4040; /* Red Circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.arrow-circle:hover {
+    transform: scale(1.1);
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: #FFF; /* White Arrow */
+    font-family: 'DotGothic16', sans-serif;
+}
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="dot-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>  
+    <div id="welcome">
+        <h1>
+            <span>Welcome to </span>
+            <span class="highlight">Quick Notes</span>,
+            <span>where notes are made easy</span>
+        </h1>
+        <div class="arrow-container" onclick="scrollToIndex()">
+            <div class="arrow-circle">
+                <div class="arrow">↓</div>
+            </div>
+        </div>
+    </div>
+        
+    <header>
+        <h1>Quick Notes</h1>
+    </header>
+
+    <!-- Section to Add Notes -->
+    <section class="add-note-form">
+        <form action="/add_note" method="POST">
+            <div>
+                <input type="text" name="title" placeholder="Note Title" required>
+            </div>
+            <div>
+                <textarea name="content" placeholder="Note Content" rows="5" required></textarea>
+            </div>
+            <div>
+                <select name="format">
+                    <option value="">None</option>
+                    <option value="bold">Bold</option>
+                    <option value="italic">Italic</option>
+                    <option value="underline">Underline</option>
+                </select>
+            </div>
+            <button type="submit">Add Note</button>
+        </form>
+    </section>
+
+    <!-- Section for displaying existing notes -->
+    <section class="container section-spacing">
+        <ul>
+            {% for note in notes %}
+            <li>
+                <!-- Optional vertical line -->
+                <div class="blue-line"></div>
+
+                <!-- Main content area -->
+                <div class="note-content">
+                    <h3>{{ note.title|safe }}</h3>
+                    <p>{{ note.content|safe }}</p>
+                    <form action="/edit_delete_note/{{ loop.index0 }}" method="POST">
+                        <div class="mb-3">
+                            <input type="text" name="title" placeholder="New Title" value="{{ note.title }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="content" placeholder="New Content">{{ note.content }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select name="format">
+                                <option value="">None</option>
+                                <option value="bold" {% if '<b>' in note.content and '</b>' in note.content %}selected{% endif %}>Bold</option>
+                                <option value="italic" {% if '<i>' in note.content and '</i>' in note.content %}selected{% endif %}>Italic</option>
+                                <option value="underline" {% if '<u>' in note.content and '</u>' in note.content %}selected{% endif %}>Underline</option>
+                            </select>
+                        </div>
+                        <div class="action-buttons">
+                            <button type="submit" name="action" value="edit" style="background-color: #484545;">Save Changes</button>
+                            <button type="submit" name="action" value="delete" style="background-color: #FF4040;">Delete</button>
+                        </div>
+                        <small>Last Modified: {{ note.last_modified }}</small>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const preloader = document.getElementById("preloader");
+            const welcome = document.getElementById("welcome");
+            const mainContent = document.querySelector(".container");
+    
+            // Show welcome after preloader
+            setTimeout(() => {
+                document.body.classList.add("loaded");
+                preloader.style.display = "none";
+                welcome.classList.add("loaded");
+            }, 2000); // Adjust preloader timeout if needed
+    
+            // Scroll to the main content when the arrow is clicked
+            window.scrollToIndex = function () {
+                welcome.style.display = "none";
+                mainContent.scrollIntoView({ behavior: "smooth" });
+            };
+        });
+    </script>
+      
+</body>
+</html>
