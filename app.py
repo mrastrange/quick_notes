@@ -87,6 +87,20 @@ def edit_delete_note(note_id):
 
     threading.Thread(target=save_notes).start()
     return redirect(url_for('index'))
+# Route to search notes by keyword in the title
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query', '').strip().lower()
+    results = []
+
+    # Match query with titles
+    for note in notes:
+        # Ensure the search compares plain text
+        plain_title = note.title.strip().lower()
+        if query in plain_title:
+            results.append(note)
+
+    return render_template('search.html', results=results)
 
 # Initialize the app with notes
 load_notes()  # Load notes from CSV on startup

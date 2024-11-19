@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Quick Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            background-color: #000;
+            color: #FFF;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #FF4040;
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        li {
+            background-color: transparent;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        .blue-line {
+            width: 5px;
+            margin-right: 20px;
+        }
+
+        .note-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-content h3 {
+            font-size: 1.5rem;
+            color: #FFF;
+            margin: 0 0 10px 0;
+        }
+
+        .note-content p {
+            color: #CCC;
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #FF4040;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Search Results</h1>
+    </header>
+
+    <section class="container">
+        <ul>
+            {% if results %}
+                {% for note in results %}
+                <li>
+                    <div class="blue-line"></div>
+                    <div class="note-content">
+                        <h3>{{ note.title|safe }}</h3>
+                        <p>{{ note.content|safe }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; font-size: 1.2rem; color: #CCC;">No matching notes found for your search query.</p>
+            {% endif %}
+        </ul>
+    </section>
+
+    <a href="/" class="back-link">← Back to Home</a>
+</body>
+</html>

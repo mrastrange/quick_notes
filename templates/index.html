@@ -324,9 +324,29 @@ body.loaded #preloader {
     <header>
         <h1>Quick Notes</h1>
     </header>
-
+    <!-- Search Form -->
+<section class="search-form">
+    <form action="/search" method="GET" style="max-width: 600px; margin: 20px auto; display: flex;">
+        <input 
+            type="text" 
+            name="query" 
+            placeholder="Search notes by title..." 
+            required 
+            style="width: 100%;flex: 1; padding: 10px; border: 1px solid #FFF; border-radius: 10px; background-color: transparent; color: #FFF; font-size: 1rem;"
+        >
+        <div class="action-buttons">
+            <button 
+                type="submit" 
+                style=";margin-left: 10px; background-color: #FF4040; color: #FFF; border: none; border-radius: 10px; padding: 10px 20px; font-size: 1rem; cursor: pointer;"
+            >
+                Search
+            </button>
+        </div>
+    </form>
+</section>
     <!-- Section to Add Notes -->
     <section class="add-note-form">
+        <h1>Add a new note</h1>
         <form action="/add_note" method="POST">
             <div>
                 <input type="text" name="title" placeholder="Note Title" required>
