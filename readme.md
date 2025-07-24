@@ -58,9 +58,9 @@ python app.py
 
 ## 5. Design Patterns Used
 
-1.**Command Pattern** – Wraps user actions into command objects.
-2.**Observer Pattern** – Monitors state changes for side-effects.
-3.**State Pattern** – Dynamically alters app behavior based on internal state.
+1. **Command Pattern** – Wraps user actions into command objects.
+2. **Observer Pattern** – Monitors state changes for side-effects.
+3. **State Pattern** – Dynamically alters app behavior based on internal state.
 
 ## License
 This project is open-source and available under the [MIT License](LICENSE)
