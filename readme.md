@@ -3,7 +3,7 @@
 ## 1. Project Description
 Quick Notes is a command-line based note management tool built in Python. It allows users to easily add, view, and manage notes, with all data stored locally in a CSV file. The codebase follows clean architecture principles and utilizes common design patterns like Command and Observer.
 
----
+
 
 ## 2. Features
 1. **Add Notes** – Create and save notes via CLI.
@@ -13,24 +13,22 @@ Quick Notes is a command-line based note management tool built in Python. It all
 5. **Local CSV Storage** – Notes are saved in `notes.csv`.
 6. **Vercel Compatible** – Includes `vercel.json` for optional deployment.
 
----
+
 
 ## 3. Project Structure
 
+```
 quick_notes/
-├── app.py # Main application launcher
-├── note.py # Note object and logic
-├── command.py # CLI command parser and executor
-├── state.py # App state management
-├── decorators.py # Utility decorators
-├── notes.csv # Stores user notes
-├── requirements.txt # Python dependencies
-├── vercel.json # Optional Vercel deployment config
-└── readme.md # Documentation
-
-
-
----
+├── app.py              # Main application launcher
+├── note.py             # Note object and logic
+├── command.py          # CLI command parser and executor
+├── state.py            # App state management
+├── decorators.py       # Utility decorators
+├── notes.csv           # Stores user notes
+├── requirements.txt    # Python dependencies
+├── vercel.json         # Optional Vercel deployment config
+└── readme.md           # Documentation
+```
 
 ## 4. Setup and Installation
 
