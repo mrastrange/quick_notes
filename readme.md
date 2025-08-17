@@ -39,7 +39,7 @@ quick_notes/
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/your-username/quick_notes.git
+git clone https://github.com/mrastrange/quick_notes.git
 cd quick_notes
 ```
 2. **(Optional) Create a Virtual Environment**
